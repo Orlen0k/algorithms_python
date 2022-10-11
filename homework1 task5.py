@@ -15,15 +15,23 @@
 
 
 class StackClass:
-    def __init__(self):
-        self.elems = [[],[],[],[],[]]
+    def __init__(self, max_size):
+        self.elems = []
+        self.max_size = max_size
+
+    def __str__(self):
+        return str(self.elems)
+
+    def is_empty(self):
+        return self.elems == []
 
     def push_in(self, el):
         # Предполагаем, что верхний элемент стека находится в конце списка
-        for i in range(0, len(self.elems) - 1, 1):
-            if len(self.elems[i]) < 5:
-                self.elems[i].append(el)
-                break
+        if len(self.elems[len(self.elems)-1]) < self.max_size:
+            self.elems[len(self.elems)-1].append(el)
+        else:
+            self.elems.append([])
+            self.elems[len(self.elems)-1].append(el)
 
 
 
@@ -38,6 +46,12 @@ class StackClass:
         return self.elems[len(self.elems) - 1]
 
     def stack_size(self):
+        elem_sum = 0
+        for stack in self.elems:
+            elem_sum += len(stack)
+        return elem_sum
+
+    def stack_count(self):
         return len(self.elems)
 
 class Stack:
@@ -51,10 +65,5 @@ class Stack:
             self.max = item
 
 if __name__ == '__main__':
-    stack_1 = StackClass()
-    i = 0
-    while i < 18:
-        stack_1.push_in(1+i)
-        i += 1
-
-    print(stack_1.elems)
+    stack_1 = StackClass(5)
+    print(type(stack_1))

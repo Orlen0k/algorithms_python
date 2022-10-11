@@ -17,22 +17,25 @@
 
 companies = {'ARS': 526879.45, 'SECT': 895674.32, 'FOX': 789456213.78, 'ZZZ': 478956213.56, 'XXX': 4789555555.55}
 
-# 1 способ
-list_values = sorted(list(companies.values()), reverse=True)[:3]                     # O(n)
-for el in list_values:                                                               # O(1)
-    for k, v in companies.items():                                                   # O(n)
-        if v == el:
-            print(k, ':', v)                                                         # O(1)
+# 1 способ O(N^2)
+def sorted_1(companies):
+    list_from_dict = list(companies.items())
+    for i in range(len(list_from_dict)):
+        lowest_value_index = i
+        for j in range(i + 1, len(list_from_dict)):
+            if list_from_dict[j][1] > list_from_dict[lowest_value_index][1]:
+                lowest_value_index = j
+        list_from_dict[i], list_from_dict[lowest_value_index] = list_from_dict[lowest_value_index], list_from_dict[i]
+    print(list_from_dict[0:3])
 
-
-# O(n)  + O(1) + O(n)  + O(1) = O(n)
-
+(sorted_1(companies))
+#
 # 2 способ
-sorted_companies = sorted(companies, key=companies.get, reverse=True)[:3]    # O(n log n)
-for i in sorted_companies:                                                   # O(1)
-    print(i, ':', companies.get(i))                                          # O(1)
+sorted_companies = sorted(companies, key=companies.get, reverse=True)[:3]
+for i in sorted_companies:
+    print(i, ':', companies.get(i))
 
-# O(n log n) + O(1) + O(1) = O (n  log n)
+# O(1)
 
-
-# Эффективнее 2 способ, т.к. он лаконичнее и итоговая сложность O(n log n) меньше, чем O(n)
+#
+# Эффективнее 2 способ
