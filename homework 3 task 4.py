@@ -32,12 +32,12 @@ import hashlib
 
 url = input('https://yandex.ru /')
 
-kash = {'77fca5950e249d66b4e8bc9761ffdc7a6a5b31c619babcbdad4dd8ff4aaa5f50'}
+сash = {'77fca5950e249d66b4e8bc9761ffdc7a6a5b31c619babcbdad4dd8ff4aaa5f50'}
 
 
 def chek_url(u):
     hash_u = hashlib.sha256(u.encode()).hexdigest()
-    if hash_u in kash.keys():
+    if hash_u in сash.keys():
         return True
     else:
         return {hash_u: u}
@@ -46,11 +46,11 @@ def chek_url(u):
 chek_url(url)
 
 try:
-    kash.update(chek_url(url))
+    сash.update(chek_url(url))
 except TypeError:
     print("Такой объект уже есть в кэше")
 
-print(kash)
+print(сash)
 
 
 
